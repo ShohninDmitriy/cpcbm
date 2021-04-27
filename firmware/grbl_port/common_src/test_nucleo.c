@@ -2,7 +2,7 @@
   test_nucleo.c - test functions for grbl_port_opencm3 on nucleo
   Part of grbl_port_opencm3 project.
 
-  Copyright (c) 2017 Angelo Di Chello
+  Copyright (c) 2017-2020 The Ant Team
 
   Grbl_port_opencm3 is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -24,13 +24,15 @@
 #include "limits.h"
 //#endif
 
-void test_initialization()
+void test_heartbeat_initialization()
 {
   /* Enable GPIOA clock. */
   rcc_periph_clock_enable(RCC_GPIOA);
 
   /* Set GPIO5 (in GPIO port A) to 'output push-pull'. */
   gpio_mode_setup(GPIOA, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO5);
+
+  SET_HEARTBEAT_DDR;
 }
 
 static void test_user_button_initialization(void)

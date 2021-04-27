@@ -2,7 +2,7 @@
   main.c - An embedded CNC Controller with rs274/ngc (g-code) support
   Part of grbl_port_opencm3 project, derived from the Grbl work.
 
-  Copyright (c) 2017-2020 Angelo Di Chello
+  Copyright (c) 2017-2020 The Ant Team
   Copyright (c) 2011-2016 Sungeun K. Jeon for Gnea Research LLC
   Copyright (c) 2009-2011 Simen Svale Skogsrud
   
@@ -66,6 +66,7 @@ int main(void)
   settings_init(); // Load Grbl settings from EEPROM
   stepper_init();  // Configure stepper pins and interrupt timers
   system_init();   // Configure pinout pins and pin-change interrupt
+  test_heartbeat_initialization(); // Configure heartbeat lead
 
   memset(sys_position,0,sizeof(sys_position)); // Clear machine position.
 #ifdef NUCLEO_F401
@@ -120,7 +121,6 @@ int main(void)
     probe_init();
     plan_reset(); // Clear block buffer and planner variables
     st_reset(); // Clear stepper subsystem variables.
-    SET_HEARTBEAT_DDR;
 
 #ifdef VARIABLE_SPINDLE
     /* Check if a minimal pwm needs to be given to the spindle at startup

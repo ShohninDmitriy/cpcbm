@@ -2,7 +2,7 @@
   cpu_map_nucleof401.h - CPU and pin mapping configuration file for NUCLEO F401 board.
   Part of grbl_port_opencm3 project.
 
-  Copyright (c) 2017-2020 Angelo Di Chello
+  Copyright (c) 2017-2020 The Ant Team
 
   Grbl_port_opencm3 is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -329,7 +329,7 @@
   #ifndef SPINDLE_PWM_MIN_VALUE
     #define SPINDLE_PWM_MIN_VALUE   settings.spindle_pwm_min_time_on   // Must be greater than zero.
   #endif
-  #define SPINDLE_PWM_OFF_VALUE     0
+  #define SPINDLE_PWM_OFF_VALUE     (settings.spindle_pwm_min_time_on)
   #define SPINDLE_PWM_RANGE         (SPINDLE_PWM_MAX_VALUE-SPINDLE_PWM_MIN_VALUE)
   
   #define SPINDLE_PWM_DDR               GPIOA_MODER

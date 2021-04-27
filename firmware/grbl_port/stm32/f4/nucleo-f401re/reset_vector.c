@@ -2,7 +2,7 @@
   reset_vector.c - Redefine weak function reset_handler, to copy code in RAM at startup.
   Part of grbl_port_opencm3 project.
 
-  Copyright (c) 2017-2020 Angelo Di Chello
+  Copyright (c) 2017-2020 The Ant Team
 
   Grbl_port_opencm3 is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -25,7 +25,10 @@
 extern int main(void);
 
 /* Symbols exported by the linker script(s): */
-extern unsigned _data_loadaddr, _data, _edata, _bss, _ebss, _stack, _ramcode, _eramcode, _ramcode_loadaddr;
+extern unsigned _data,     _edata,     _data_loadaddr;
+extern unsigned _bss,      _ebss,      _stack;
+extern unsigned _ramcode,  _eramcode,  _ramcode_loadaddr;
+extern unsigned _ramcode2, _eramcode2, _ramcode2_loadaddr;
 
 /* Redefine the reset handler to allow ram code copy */
 void reset_handler(void)
@@ -43,11 +46,16 @@ void reset_handler(void)
 	}
 
 	for (src = &_ramcode_loadaddr, dest = &_ramcode;
-			dest < &_eramcode;
-			src++, dest++) {
-			*dest = *src;
-		}
+		dest < &_eramcode;
+		src++, dest++) {
+		*dest = *src;
+	}
 
+	for (src = &_ramcode2_loadaddr, dest = &_ramcode2;
+		dest < &_eramcode2;
+		src++, dest++) {
+		*dest = *src;
+	}
 
 	/* Disable interrupts to relocate VTOR */
    __disable_irq(); // Global disable interrupts

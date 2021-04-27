@@ -2,7 +2,7 @@
   spindle_control.h - spindle control methods
   Part of grbl_port_opencm3 project, derived from the Grbl work.
 
-  Copyright (c) 2017-2020 Angelo Di Chello
+  Copyright (c) 2017-2021 The Ant Team
   Copyright (c) 2012-2016 Sungeun K. Jeon for Gnea Research LLC
   Copyright (c) 2009-2011 Simen Svale Skogsrud
 
@@ -29,8 +29,6 @@
 #define SPINDLE_STATE_DISABLE  0  // Must be zero.
 #define SPINDLE_STATE_CW       bit(0)
 #define SPINDLE_STATE_CCW      bit(1)
-
-
 
 // Initializes spindle pins and hardware PWM, if enabled.
 void spindle_init(void);
@@ -73,10 +71,6 @@ uint8_t spindle_get_state(void);
   // Computes 328p-specific PWM register value for the given RPM for quick updating.
   uint8_t spindle_compute_pwm_value(float rpm);
 #endif
-
-// Sets spindle direction and spindle rpm via PWM, if enabled.
-void spindle_run(uint8_t direction, float rpm);
-
 
 // Kills spindle.
 void spindle_stop(void);
